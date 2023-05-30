@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 
@@ -20,20 +22,61 @@ import java.io.Serializable;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	// conexao é a variavel que eu criei na minha Classe ModuloConexao
 	Connection conexao = null;
+	
 	// A linha abaixo prepara o código para receber comandos SQL
 	PreparedStatement pst = null;
+	
 	// A linha abaixo exibe o resultado das intruções SQL
 	ResultSet rs = null;
+	
+	public void logar() {
+		String sql ="select * from usuarios_senhas where usuarios=? and senhas=? ";
+		try {
+			
+			//As linhas abaixo preparam a consulta ao banco em função do que foi
+			//digitado nas caixas de texto, o "?" é substituido pelo conteúdo das variáveis
+			pst = conexao.prepareStatement(sql);
+			pst.setString(1,textUsuario.getText());
+			String captura = new String(pwdSenha.getPassword());
+			pst.setString(2,captura);
+			
+			//A linha abaixo executa a query da variável "sql"
+			rs = pst.executeQuery();
+			
+			//Se existir usuário e senha correspondente
+			if (rs.next()) {
+				
+				//As linhas abaixo irão abrir a classe "TelaPrincipal"
+				TelaPrincipal principal	= new TelaPrincipal();
+				principal.setLocationRelativeTo(null);				
+				principal.setVisible(true);
+				
+				//A linha abaixo fecha a classe "TelaLogin"
+				this.dispose();
+				
+				//A linha abaixo fecha a conexão com o banco de dados
+				conexao.close();
+												
+			}else {
+				JOptionPane.showMessageDialog(null,"Usuário ou Senha inválido");
+			}
+						
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,e);
+		}
+	}
 		
 	
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField textUsuario;
+	private JPasswordField pwdSenha;
 	private JPanel contentPane;
 
 	/**
@@ -85,13 +128,21 @@ public class TelaLogin extends JFrame implements Serializable {
 		lblNewLabel_1.setBounds(10, 97, 59, 24);
 		contentPane.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(79, 44, 222, 24);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textUsuario = new JTextField();
+		textUsuario.setBounds(79, 44, 222, 24);
+		contentPane.add(textUsuario);
+		textUsuario.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		JButton btnLogin = new JButton("Entrar");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Chamando o método logar
+				logar();
+			}
+		});
+		btnLogin.setForeground(new Color(255, 255, 255));
+		btnLogin.setBackground(new Color(220, 3, 41));
+		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLogin.setBounds(132, 172, 96, 30);
 		contentPane.add(btnLogin);
 		
@@ -106,9 +157,9 @@ public class TelaLogin extends JFrame implements Serializable {
 		lblNewLabel_2.setBounds(38, 46, 126, 95);
 		panel.add(lblNewLabel_2);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(79, 99, 222, 24);
-		contentPane.add(passwordField);
+		pwdSenha = new JPasswordField();
+		pwdSenha.setBounds(79, 99, 222, 24);
+		contentPane.add(pwdSenha);
 		
 		JLabel lblStatus = new JLabel("Status conexão ao banco");
 		lblStatus.setBounds(10, 209, 134, 30);
@@ -135,9 +186,9 @@ public class TelaLogin extends JFrame implements Serializable {
 		chckbxVisualizarSenha.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (chckbxVisualizarSenha.isSelected()) {
-                    passwordField.setEchoChar((char) 0); // Mostra o texto do campo passwordField
+                    pwdSenha.setEchoChar((char) 0); // Mostra o texto do campo passwordField
                 } else {
-                    passwordField.setEchoChar('\u2022'); // Oculta o texto do campo passwordField com um caractere de senha
+                    pwdSenha.setEchoChar('\u2022'); // Oculta o texto do campo passwordField com um caractere de senha
                 }
             }
 		});

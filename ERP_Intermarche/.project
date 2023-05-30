@@ -16,6 +16,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/br/com/erp_intermarche/icones/Imagem2.jpg</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Pictures/PlanoDeFundo/Imagem2.jpg</location>
+		</link>
+		<link>
 			<name>src/br/com/erp_intermarche/icones/dberro.png</name>
 			<type>1</type>
 			<location>C:/Users/nathan.fernandes/Desktop/dberro.png</location>
@@ -24,6 +29,11 @@
 			<name>src/br/com/erp_intermarche/icones/dbokk.png</name>
 			<type>1</type>
 			<location>C:/Users/nathan.fernandes/Desktop/dbokk.png</location>
+		</link>
+		<link>
+			<name>src/br/com/erp_intermarche/icones/gnu.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/gnu.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>
