@@ -17,6 +17,9 @@ import javax.swing.JPasswordField;
 import java.sql.*;
 import br.com.erp_intermarche.dal.ModuloConexao;
 import java.io.Serializable;
+import javax.swing.JCheckBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class TelaLogin extends JFrame implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -65,7 +68,7 @@ public class TelaLogin extends JFrame implements Serializable {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\nathan.fernandes\\Pictures\\PlanoDeFundo\\Imagem2.jpg"));
 		setTitle("Intermarché - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 266);
+		setBounds(100, 100, 519, 280);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -73,23 +76,23 @@ public class TelaLogin extends JFrame implements Serializable {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuário");
-		lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblNewLabel.setBounds(10, 52, 47, 24);
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblNewLabel.setBounds(10, 42, 59, 24);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Senha");
-		lblNewLabel_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(10, 107, 38, 24);
+		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(10, 97, 59, 24);
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
-		textField.setBounds(67, 54, 234, 24);
+		textField.setBounds(79, 44, 222, 24);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnLogin.setBounds(130, 155, 96, 30);
+		btnLogin.setBounds(132, 172, 96, 30);
 		contentPane.add(btnLogin);
 		
 		JPanel panel = new JPanel();
@@ -104,13 +107,18 @@ public class TelaLogin extends JFrame implements Serializable {
 		panel.add(lblNewLabel_2);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(67, 109, 234, 24);
+		passwordField.setBounds(79, 99, 222, 24);
 		contentPane.add(passwordField);
 		
-		JLabel lblStatus = new JLabel("");
-		lblStatus.setBounds(10, 197, 75, 30);
+		JLabel lblStatus = new JLabel("Status conexão ao banco");
+		lblStatus.setBounds(10, 209, 134, 30);
 		contentPane.add(lblStatus);
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		
+		JCheckBox chckbxVisualizarSenha = new JCheckBox("Visualizar senha");
+		chckbxVisualizarSenha.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		chckbxVisualizarSenha.setBounds(79, 130, 134, 23);
+		contentPane.add(chckbxVisualizarSenha);
 		
 		if (conexao != null) {
 		    ImageIcon icon = new ImageIcon(getClass().getResource("/br/com/erp_intermarche/icones/dbokk.png"));
@@ -123,6 +131,15 @@ public class TelaLogin extends JFrame implements Serializable {
 		    ImageIcon scaledIcon = new ImageIcon(image);
 		    lblStatus.setIcon(scaledIcon);
 		}
-
+		
+		chckbxVisualizarSenha.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                if (chckbxVisualizarSenha.isSelected()) {
+                    passwordField.setEchoChar((char) 0); // Mostra o texto do campo passwordField
+                } else {
+                    passwordField.setEchoChar('\u2022'); // Oculta o texto do campo passwordField com um caractere de senha
+                }
+            }
+		});
 	}
 }
