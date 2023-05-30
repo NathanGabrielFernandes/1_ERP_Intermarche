@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>ERP_Intermarche</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/br/com/erp_intermarche/icones/dberro.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/dberro.png</location>
+		</link>
+		<link>
+			<name>src/br/com/erp_intermarche/icones/dbokk.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/dbokk.png</location>
+		</link>
+	</linkedResources>
+</projectDescription>
