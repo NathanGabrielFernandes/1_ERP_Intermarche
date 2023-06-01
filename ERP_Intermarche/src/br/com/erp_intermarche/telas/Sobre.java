@@ -42,7 +42,7 @@ public class Sobre extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Desenvolvido por Nathan Fernandes");
-		lblNewLabel_1.setBounds(10, 100, 243, 34);
+		lblNewLabel_1.setBounds(10, 100, 301, 34);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Sob a licença GPL");
@@ -58,6 +58,9 @@ public class Sobre extends JFrame {
 		lblNewLabel_3.setIcon(iconRedimensionado);
 		lblNewLabel_3.setBounds(128, 163, 25, 46);
 		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Ano 2023");
+		lblNewLabel_4.setBounds(10, 225, 63, 14);
+		contentPane.add(lblNewLabel_4);
 	}
-
 }

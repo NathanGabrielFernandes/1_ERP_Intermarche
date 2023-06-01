@@ -1,29 +1,32 @@
 package br.com.erp_intermarche.telas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Image;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.ImageIcon;
 import java.awt.Toolkit;
-import javax.swing.JPasswordField;
-import java.sql.*;
-import br.com.erp_intermarche.dal.ModuloConexao;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.lang.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
+
+import br.com.erp_intermarche.dal.ModuloConexao;
 
 public class TelaLogin extends JFrame implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -53,27 +56,34 @@ public class TelaLogin extends JFrame implements Serializable {
 			
 			//Se existir usuário e senha correspondente
 			if (rs.next()) {
+				//A linha abaixo obtem o conteudo do campo perfil da tabela usuarios_senhas do banco de dados
+				String perfil = rs.getString(3); // número 3 é o número da coluna que contem o perfil no banco de dados
 				
-				//As linhas abaixo irão abrir a classe "TelaPrincipal"
-				TelaPrincipal principal	= new TelaPrincipal();
-				principal.setLocationRelativeTo(null);				
+				//A estrutura abaixo faz o tratamento do perfil do usuário
+				if(perfil.equals("admin")) {					
+				TelaPrincipal principal = new TelaPrincipal();
+				principal.setLocationRelativeTo(null);
 				principal.setVisible(true);
-				
-				//A linha abaixo fecha a classe "TelaLogin"
+				((JMenuItem) TelaPrincipal.mntmRelatorioLogistica).setEnabled(true);
+				((JMenuItem) TelaPrincipal.mntmUsuario).setEnabled(true);
 				this.dispose();
-				
 				//A linha abaixo fecha a conexão com o banco de dados
 				conexao.close();
-												
+				}else {
+					TelaPrincipal principal = new TelaPrincipal();
+					principal.setLocationRelativeTo(null);
+					principal.setVisible(true);
+				}
 			}else {
 				JOptionPane.showMessageDialog(null,"Usuário ou Senha inválido");
 			}
-						
+				
+									
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,e);
 		}
+			
 	}
-		
 	
 	private JTextField textUsuario;
 	private JPasswordField pwdSenha;
