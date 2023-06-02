@@ -1,0 +1,23 @@
+[33mcommit 8f4f4e1f62ea08091da048b9351276d181277f96[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Nathan Fernandes <nathanfernandes@systemhaus.com.br>
+Date:   Thu Jun 1 11:46:09 2023 +0100
+
+    Criado o controle de acesso de usuário dependendo do tipo de usuário (admin ou user)
+
+[33mcommit 9fdf0915a608d42ab54ec88ef1d820385df7af0d[m
+Author: Nathan Fernandes <nathanfernandes@systemhaus.com.br>
+Date:   Tue May 30 23:37:55 2023 +0100
+
+    Criação da Tela Principal e Tela Sobre
+
+[33mcommit a77c5576f335ed9b1b27a4105c118377165aab6a[m
+Author: Nathan Fernandes <nathanfernandes@systemhaus.com.br>
+Date:   Tue May 30 13:01:51 2023 +0100
+
+    Criação do CheckBox Visualizar senha
+
+[33mcommit efe9e7cb21e9149efe9f62f20c5def0ab33216e1[m
+Author: Nathan Fernandes <nathanfernandes@systemhaus.com.br>
+Date:   Tue May 30 10:54:16 2023 +0100
+
+    Criação da tela de login e Modulo de conexão ao banco de dados

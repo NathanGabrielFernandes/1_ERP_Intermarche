@@ -41,7 +41,7 @@ public class TelaLogin extends JFrame implements Serializable {
 	ResultSet rs = null;
 	
 	public void logar() {
-		String sql ="select * from usuarios_senhas where usuarios=? and senhas=? ";
+		String sql ="select * from usuarios_senhas where email=? and senhas=? ";
 		try {
 			
 			//As linhas abaixo preparam a consulta ao banco em função do que foi
@@ -60,19 +60,23 @@ public class TelaLogin extends JFrame implements Serializable {
 				String perfil = rs.getString(3); // número 3 é o número da coluna que contem o perfil no banco de dados
 				
 				//A estrutura abaixo faz o tratamento do perfil do usuário
+				
 				if(perfil.equals("admin")) {					
-				TelaPrincipal principal = new TelaPrincipal();
-				principal.setLocationRelativeTo(null);
-				principal.setVisible(true);
-				((JMenuItem) TelaPrincipal.mntmRelatorioLogistica).setEnabled(true);
-				((JMenuItem) TelaPrincipal.mntmUsuario).setEnabled(true);
-				this.dispose();
-				//A linha abaixo fecha a conexão com o banco de dados
-				conexao.close();
+				TelaPrincipal principal = new TelaPrincipal();  					 // chama a tela principal
+				principal.setLocationRelativeTo(null);								 // centraliza a tela principal
+				principal.setVisible(true);											 // deixa visível 
+				((JMenuItem) TelaPrincipal.mntmRelatorioLogistica).setEnabled(true); // habilita a opção de relatório da tela principal
+				((JMenuItem) TelaPrincipal.mntmUsuario).setEnabled(true);			 // habilita a opção de novo usuário da tela principal
+				((JLabel)TelaPrincipal.lblUsuarioAtual).setText(rs.getString(1));	 // altera a label para o nome de usuario pegando o dado do banco de dados
+				((JLabel)TelaPrincipal.lblNivelAcesso).setText(rs.getString(3));	 // altera a label para o nível de acesso do usuario pegando do banco de dados
+				this.dispose();														 // fecha a tela de login	
+				conexao.close();													 // fecha a conexão com o banco de dados
 				}else {
 					TelaPrincipal principal = new TelaPrincipal();
 					principal.setLocationRelativeTo(null);
 					principal.setVisible(true);
+					((JLabel)TelaPrincipal.lblUsuarioAtual).setText(rs.getString(1));
+					((JLabel)TelaPrincipal.lblNivelAcesso).setText(rs.getString(3));
 				}
 			}else {
 				JOptionPane.showMessageDialog(null,"Usuário ou Senha inválido");

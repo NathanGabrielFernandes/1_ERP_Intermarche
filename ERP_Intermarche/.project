@@ -21,6 +21,11 @@
 			<location>C:/Users/nathan.fernandes/Pictures/PlanoDeFundo/Imagem2.jpg</location>
 		</link>
 		<link>
+			<name>src/br/com/erp_intermarche/icones/add.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/add.png</location>
+		</link>
+		<link>
 			<name>src/br/com/erp_intermarche/icones/dberro.png</name>
 			<type>1</type>
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/dberro.png</location>
@@ -31,9 +36,29 @@
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/dbokk.png</location>
 		</link>
 		<link>
+			<name>src/br/com/erp_intermarche/icones/delete.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/delete.png</location>
+		</link>
+		<link>
+			<name>src/br/com/erp_intermarche/icones/edit.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/edit.png</location>
+		</link>
+		<link>
 			<name>src/br/com/erp_intermarche/icones/gnu.png</name>
 			<type>1</type>
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/gnu.png</location>
+		</link>
+		<link>
+			<name>src/br/com/erp_intermarche/icones/home.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/home.png</location>
+		</link>
+		<link>
+			<name>src/br/com/erp_intermarche/icones/search.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/search.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>
