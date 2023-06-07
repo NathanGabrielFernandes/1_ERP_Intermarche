@@ -1,7 +1,6 @@
 package br.com.erp_intermarche.telas;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,13 +12,13 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
@@ -29,14 +28,31 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.sql.*;
+import br.com.erp_intermarche.dal.ModuloConexao;
+
+
+
 
 public class TelaUsuario extends JFrame {
-
+	 private JComboBox<String> cboPerfil; 
+	 private JComboBox<String> cboPerfil_1;
+	
+	// conexao é a variavel que eu criei na minha Classe ModuloConexao
+	Connection conexao = null;
+	
+	// A linha abaixo prepara o código para receber comandos SQL
+	PreparedStatement pst = null;
+	
+	// A linha abaixo exibe o resultado das intruções SQL
+	ResultSet rs = null;
+	
 	private JPanel contentPane;
-	private JTextField textNomeCompleto;
+	private JTextField textUsuNome;
 	private JTextField textSenha;
 	private JTextField textEmail;
-
+	private JTextField textUsuId;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,50 +74,18 @@ public class TelaUsuario extends JFrame {
 	 */
 	@SuppressWarnings("unused")
 	public TelaUsuario() {
+		cboPerfil = new JComboBox<String>();
+		// A linha abaixo chama o metodo conector
+		conexao = ModuloConexao.conector();
+			
 		setResizable(false);
 		setTitle("Usuários");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaUsuario.class.getResource("/br/com/erp_intermarche/icones/Imagem2.jpg")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 920, 556);
 		ImageIcon icon = new ImageIcon(TelaUsuario.class.getResource("/br/com/erp_intermarche/icones/home.png"));
 		Image image = icon.getImage(); // Obtém a imagem do ícone
 		Image newImage = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-		
-		JLabel lblNomeCompleto = new JLabel("Nome completo");
-		lblNomeCompleto.setBounds(115, 106, 161, 18);
-		lblNomeCompleto.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(115, 182, 161, 18);
-		lblSenha.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		
-		JLabel lblPerfil = new JLabel("Perfil");
-		lblPerfil.setBounds(115, 222, 161, 18);
-		lblPerfil.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		
-		textNomeCompleto = new JTextField();
-		textNomeCompleto.setBounds(286, 104, 548, 22);
-		textNomeCompleto.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		textNomeCompleto.setColumns(10);
-		
-		textSenha = new JTextField();
-		textSenha.setBounds(286, 180, 244, 22);
-		textSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		textSenha.setColumns(10);
-		
-		JComboBox cboPerfil = new JComboBox();
-		cboPerfil.setBounds(286, 220, 61, 22);
-		cboPerfil.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		cboPerfil.setModel(new DefaultComboBoxModel(new String[] {"user", "admin"}));
-		
-		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setBounds(115, 139, 117, 18);
-		lblEmail.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		
-		textEmail = new JTextField();
-		textEmail.setBounds(286, 137, 548, 22);
-		textEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		textEmail.setColumns(10);
 		
 		
 		ImageIcon icon1 = new ImageIcon(TelaUsuario.class.getResource("/br/com/erp_intermarche/icones/add.png"));
@@ -133,47 +117,142 @@ public class TelaUsuario extends JFrame {
 		Image imagem5 = icon5.getImage();
 		Image imagemRedimensionada5 = imagem5.getScaledInstance(30,30,image.SCALE_SMOOTH);
 		ImageIcon iconRedimensionado5 = new ImageIcon(imagemRedimensionada5);
-		JButton btnHome = new JButton("");
-		btnHome.setBounds(10, 11, 61, 48);
-		btnHome.setIcon(iconRedimensionado5);
-		
-		
-		
-		getContentPane().setLayout(null);
-		getContentPane().add(lblSenha);
-		getContentPane().add(lblNomeCompleto);
-		getContentPane().add(lblEmail);
-		getContentPane().add(lblPerfil);
-		getContentPane().add(cboPerfil);
-		getContentPane().add(textEmail);
-		getContentPane().add(textSenha);
-		getContentPane().add(textNomeCompleto);
-		getContentPane().add(btnHome);
 		
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setVgap(15);
 		flowLayout.setHgap(10);
-		panel.setBounds(112, 313, 723, 87);
-		getContentPane().add(panel);
-		JButton btnAdicionar = new JButton("");
-		panel.add(btnAdicionar);
-		btnAdicionar.setIcon(iconRedimensionado);
-		JButton btnProcurar = new JButton("");
-		panel.add(btnProcurar);
-		btnProcurar.setIcon(iconRedimensionado2);
-		JButton btnEditar = new JButton("");
-		panel.add(btnEditar);
-		btnEditar.setIcon(iconRedimensionado3);
-		JButton btnExcluir = new JButton("");
-		panel.add(btnExcluir);
-		btnExcluir.setIcon(iconRedimensionado4);
+		JButton btnUsuCreate = new JButton("");
+		btnUsuCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionar();				
+			}
+		});
+		panel.add(btnUsuCreate);
+		btnUsuCreate.setIcon(iconRedimensionado);
+		JButton btnUsuSearch = new JButton("");
+		btnUsuSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textUsuId.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Insira um valor no campo ID para visualizar os dados do usuário");
+				} else {
+					consultar();
+				}																
+			}
+		});
+		panel.add(btnUsuSearch);
+		btnUsuSearch.setIcon(iconRedimensionado2);
+		JButton btnUsuUpdate = new JButton("");
+		panel.add(btnUsuUpdate);
+		btnUsuUpdate.setIcon(iconRedimensionado3);
+		JButton btnUsuDelete = new JButton("");
+		panel.add(btnUsuDelete);
+		btnUsuDelete.setIcon(iconRedimensionado4);
 		
 		JLabel lblTitle = new JLabel("Editar Cadastro de Usuários");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblTitle.setBounds(328, 41, 255, 18);
-		getContentPane().add(lblTitle);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		
+		JLabel lblPerfil = new JLabel("Perfil");
+		lblPerfil.setBounds(79, 154, 34, 18);
+		panel_1.add(lblPerfil);
+		lblPerfil.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		
+		cboPerfil_1 = new JComboBox();
+		cboPerfil_1.setBounds(209, 152, 61, 22);
+		panel_1.add(cboPerfil_1);
+		cboPerfil_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		cboPerfil_1.setModel(new DefaultComboBoxModel(new String[] {"user", "admin"}));
+		
+		textSenha = new JTextField();
+		textSenha.setBounds(209, 123, 244, 22);
+		panel_1.add(textSenha);
+		textSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textSenha.setColumns(10);
+		
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setBounds(79, 125, 161, 18);
+		panel_1.add(lblSenha);
+		lblSenha.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		
+		textEmail = new JTextField();
+		textEmail.setBounds(209, 90, 548, 22);
+		panel_1.add(textEmail);
+		textEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textEmail.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setBounds(79, 92, 117, 18);
+		panel_1.add(lblEmail);
+		lblEmail.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		
+		textUsuNome = new JTextField();
+		textUsuNome.setBounds(209, 63, 548, 22);
+		panel_1.add(textUsuNome);
+		textUsuNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		textUsuNome.setColumns(10);
+		
+		JLabel lblNomeCompleto = new JLabel("Nome completo");
+		lblNomeCompleto.setBounds(79, 63, 129, 18);
+		panel_1.add(lblNomeCompleto);
+		lblNomeCompleto.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		
+		textUsuId = new JTextField();
+		textUsuId.setBounds(209, 34, 61, 20);
+		panel_1.add(textUsuId);
+		textUsuId.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("ID");
+		lblNewLabel.setBounds(79, 36, 27, 14);
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(80)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 776, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(80)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 776, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(323)
+							.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(50, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(31)
+					.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+					.addGap(30)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(119, Short.MAX_VALUE))
+		);
+		
+		JLabel lblNewLabel_2 = new JLabel("*");
+		lblNewLabel_2.setBounds(198, 65, 19, 14);
+		panel_1.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("*");
+		lblNewLabel_3.setBounds(198, 95, 25, 14);
+		panel_1.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("*");
+		lblNewLabel_4.setBounds(198, 128, 34, 14);
+		panel_1.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("*");
+		lblNewLabel_5.setBounds(198, 157, 37, 14);
+		panel_1.add(lblNewLabel_5);
+		getContentPane().setLayout(groupLayout);
 		
 		
 		
@@ -190,6 +269,69 @@ public class TelaUsuario extends JFrame {
 				.addGap(0, 487, Short.MAX_VALUE)
 		);
 		contentPane.setLayout(gl_contentPane);
+		
+	}
+	// Metodo para consultar usuários no banco de dados
+	private void consultar() {
+	    String sql = "select * from usuarios_senhas where id_usuarios=?";
+	    try {
+	        pst = conexao.prepareStatement(sql);
+	        int idUsuario = Integer.parseInt(textUsuId.getText());
+	        pst.setInt(1, idUsuario);
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            textUsuNome.setText(rs.getString(5));
+	            textEmail.setText(rs.getString(1));
+	            textSenha.setText(rs.getString(2));            	                   
+	            cboPerfil_1.setSelectedItem(rs.getString(3));
+	            
+	        } else {
+	        	JOptionPane.showMessageDialog(null,"Usuário não cadastrado");
+	        	// As linhas abaixo limpam os campos 
+	        	textUsuNome.setText(null);
+	        	textEmail.setText(null);
+	            textSenha.setText(null);            	                   
+	            cboPerfil_1.setSelectedItem(null);
+	        }
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, e);
+	    }
+	}
+	
+	
+	//Metodo para adicionar usuários
+	private void adicionar () {
+		String sql = "insert into usuarios_senhas(email,senhas,perfil,nome_completo) values(?,?,?,?)";
+		try {
+			pst=conexao.prepareStatement(sql);
+			pst.setString(1,textEmail.getText());
+			pst.setString(2,textSenha.getText());
+			pst.setString(3,cboPerfil_1.getSelectedItem().toString());
+			pst.setString(4,textUsuNome.getText());
+	//Validação dos campos obrigatórios
+	// se txtUsuId estiver vazio e textUsuNome for diferente de vazio .... 
+			if (textUsuId.getText().isEmpty() && !textUsuNome.getText().isEmpty() && !textEmail.getText().isEmpty() && !textSenha.getText().isEmpty() && cboPerfil_1.getSelectedItem()!= null) {
+							
+	//A linha abaixo atualiza a tabela usuario com os dados do formulário
+	//A estrutura abaixo é usada para confirmar a inserção dos dados na tabela
+			int adicionado = pst.executeUpdate();
+			if(adicionado>0) {
+				JOptionPane.showMessageDialog(null,"Usário adicionado com sucesso");
+			}
+			
+	// As linhas abaixo limpam os campos 		
+			textUsuNome.setText(null);
+        	textEmail.setText(null);
+            textSenha.setText(null);            	                   
+            cboPerfil_1.setSelectedItem(null);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Para cadastrar um usuário o campo ID tem que estar vazio e todos os outros campos marcados com * tem que estar preenchidos");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
+		
 		
 	}
 }

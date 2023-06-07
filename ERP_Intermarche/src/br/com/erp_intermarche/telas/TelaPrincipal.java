@@ -64,6 +64,10 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	private TelaUsuario telaUsuario; // Variável para armazenar a referência à instância da tela de usuário
+	private Sobre	telasobre;		// Variável para armazenar a referência à instância da tela de usuário
+	
 	public TelaPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/br/com/erp_intermarche/icones/Imagem2.jpg")));
 		setTitle("ERP Intermarche - Tela Principal");
@@ -80,13 +84,12 @@ public class TelaPrincipal extends JFrame {
 		mntmUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-			TelaUsuario usuario = new TelaUsuario();
-			usuario.setLocationRelativeTo(null);	
-			usuario.setVisible(true);
-			dispose();
-			
-			
-			
+			      if (telaUsuario == null) { // Verifica se a tela de usuário já está aberta
+		                telaUsuario = new TelaUsuario();
+		                telaUsuario.setLocationRelativeTo(null);
+		            }
+		            telaUsuario.setVisible(true);	
+		            
 			}
 			
 		});
@@ -140,9 +143,15 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmSobre_ERP = new JMenuItem("Sobre ERP_Intermarche");
 		mntmSobre_ERP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sobre telasobre = new Sobre();
-				telasobre.setLocationRelativeTo(null);	
-				telasobre.setVisible(true);				
+				
+				if (telasobre==null) {				
+					telasobre = new Sobre();
+					telasobre.setLocationRelativeTo(null);
+					
+				}else {
+					
+				telasobre.setVisible(true);	
+				}
 			}
 		});
 		mnNewMenu_3.add(mntmSobre_ERP);

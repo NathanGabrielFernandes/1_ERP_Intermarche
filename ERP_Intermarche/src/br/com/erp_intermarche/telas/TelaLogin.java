@@ -63,11 +63,12 @@ public class TelaLogin extends JFrame implements Serializable {
 				
 				if(perfil.equals("admin")) {					
 				TelaPrincipal principal = new TelaPrincipal();  					 // chama a tela principal
+				principal.setExtendedState(JFrame.MAXIMIZED_BOTH); 					 // Maximiza a janela
 				principal.setLocationRelativeTo(null);								 // centraliza a tela principal
 				principal.setVisible(true);											 // deixa visível 
 				((JMenuItem) TelaPrincipal.mntmRelatorioLogistica).setEnabled(true); // habilita a opção de relatório da tela principal
 				((JMenuItem) TelaPrincipal.mntmUsuario).setEnabled(true);			 // habilita a opção de novo usuário da tela principal
-				((JLabel)TelaPrincipal.lblUsuarioAtual).setText(rs.getString(1));	 // altera a label para o nome de usuario pegando o dado do banco de dados
+				((JLabel)TelaPrincipal.lblUsuarioAtual).setText(rs.getString(5));	 // altera a label para o nome de usuario pegando o dado do banco de dados
 				((JLabel)TelaPrincipal.lblNivelAcesso).setText(rs.getString(3));	 // altera a label para o nível de acesso do usuario pegando do banco de dados
 				this.dispose();														 // fecha a tela de login	
 				conexao.close();													 // fecha a conexão com o banco de dados
@@ -75,8 +76,9 @@ public class TelaLogin extends JFrame implements Serializable {
 					TelaPrincipal principal = new TelaPrincipal();
 					principal.setLocationRelativeTo(null);
 					principal.setVisible(true);
-					((JLabel)TelaPrincipal.lblUsuarioAtual).setText(rs.getString(1));
+					((JLabel)TelaPrincipal.lblUsuarioAtual).setText(rs.getString(5));
 					((JLabel)TelaPrincipal.lblNivelAcesso).setText(rs.getString(3));
+					this.dispose();	
 				}
 			}else {
 				JOptionPane.showMessageDialog(null,"Usuário ou Senha inválido");

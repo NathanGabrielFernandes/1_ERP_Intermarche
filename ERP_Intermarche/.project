@@ -56,6 +56,11 @@
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/home.png</location>
 		</link>
 		<link>
+			<name>src/br/com/erp_intermarche/icones/logo_systemhaus.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/logo_systemhaus.png</location>
+		</link>
+		<link>
 			<name>src/br/com/erp_intermarche/icones/search.png</name>
 			<type>1</type>
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/search.png</location>
