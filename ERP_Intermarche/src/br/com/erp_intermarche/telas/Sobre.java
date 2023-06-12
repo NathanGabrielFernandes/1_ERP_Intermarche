@@ -42,10 +42,10 @@ public class Sobre extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		String texto = "Com o objetivo de aprimorar minhas habilidades em programação Java, foi proposto o "+
-				"pelo time de Desenvolvimento da System Haus a "+
+		String texto = "Com o objetivo de aprimorar minhas habilidades em programação Java, foi proposto "+
+				"pelo time de Desenvolvimento da SystemHaus a "+
 				"elaboração de um programa que utilizasse os comandos básicos da linguagem Java, "+
-				"estabelecendo interações com um banco de dados PostgreSQL. Como resultado, criei um"+
+				"estabelecendo interações com um banco de dados PostgreSQL. Como resultado, criei um "+
 				"protótipo de um ERP (Enterprise Resource Planning) para aplicar os principais fundamentos básicos "+
 				"do Java.";
 						
@@ -75,7 +75,7 @@ public class Sobre extends JFrame {
 		
 		JLabel lblNewLabel_7 = new JLabel("");
 		lblNewLabel_7.setIcon(new ImageIcon(Sobre.class.getResource("/br/com/erp_intermarche/icones/logo_systemhaus.png")));
-		lblNewLabel_7.setBounds(289, 179, 339, 119);
+		lblNewLabel_7.setBounds(332, 194, 339, 119);
 		contentPane.add(lblNewLabel_7);
 	}
 }

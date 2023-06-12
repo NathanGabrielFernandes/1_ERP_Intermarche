@@ -130,8 +130,8 @@ public class TelaUsuario extends JFrame {
 		});
 		panel.add(btnUsuCreate);
 		btnUsuCreate.setIcon(iconRedimensionado);
-		JButton btnUsuSearch = new JButton("");
-		btnUsuSearch.addActionListener(new ActionListener() {
+		JButton btnUsuRead = new JButton("");
+		btnUsuRead.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textUsuId.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Insira um valor no campo ID para visualizar os dados do usuário");
@@ -140,12 +140,22 @@ public class TelaUsuario extends JFrame {
 				}																
 			}
 		});
-		panel.add(btnUsuSearch);
-		btnUsuSearch.setIcon(iconRedimensionado2);
+		panel.add(btnUsuRead);
+		btnUsuRead.setIcon(iconRedimensionado2);
 		JButton btnUsuUpdate = new JButton("");
+		btnUsuUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alterar();
+		}
+		});
 		panel.add(btnUsuUpdate);
 		btnUsuUpdate.setIcon(iconRedimensionado3);
 		JButton btnUsuDelete = new JButton("");
+		btnUsuDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				remover();
+		}
+		});
 		panel.add(btnUsuDelete);
 		btnUsuDelete.setIcon(iconRedimensionado4);
 		
@@ -252,9 +262,26 @@ public class TelaUsuario extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("*");
 		lblNewLabel_5.setBounds(198, 157, 37, 14);
 		panel_1.add(lblNewLabel_5);
+		
+		
+		ImageIcon icon6 = (new ImageIcon(TelaUsuario.class.getResource("/br/com/erp_intermarche/icones/clean.png")));
+		Image imagem6 = icon6.getImage();
+		Image imagemRedimensionada6 = imagem6.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		ImageIcon iconRedimensionado6 = new ImageIcon(imagemRedimensionada6);
+		
+		
+		JButton btnLimpar = new JButton("");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparCampos();	
+			}
+		});
+		btnLimpar.setHorizontalAlignment(SwingConstants.LEFT);
+		btnLimpar.setBounds(723, 30, 34, 22);
+		panel_1.add(btnLimpar);
 		getContentPane().setLayout(groupLayout);
-		
-		
+		btnLimpar.setIcon(iconRedimensionado6);														
+		btnLimpar.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -298,6 +325,15 @@ public class TelaUsuario extends JFrame {
 	    }
 	}
 	
+	private void limparCampos() {
+		// Limpar os campos após a atualização
+		textUsuId.setText(null);
+        textUsuNome.setText(null);
+        textEmail.setText(null);
+        textSenha.setText(null);
+        cboPerfil_1.setSelectedItem(null);
+	}
+	
 	
 	//Metodo para adicionar usuários
 	private void adicionar () {
@@ -323,15 +359,81 @@ public class TelaUsuario extends JFrame {
 			textUsuNome.setText(null);
         	textEmail.setText(null);
             textSenha.setText(null);            	                   
-            cboPerfil_1.setSelectedItem(null);
+            cboPerfil_1.getSelectedItem().toString();
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Para cadastrar um usuário o campo ID tem que estar vazio e todos os outros campos marcados com * tem que estar preenchidos");
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
-		}
-		
-		
+		}		
 	}
+	
+	//Criando o método para alterar dados do usuário
+	private void alterar() {
+	    String sql = "update usuarios_senhas set email=?, senhas=?, perfil=?, nome_completo=? where id_usuarios=?";
+	    try {
+	        pst = conexao.prepareStatement(sql);
+	        pst.setString(1, textEmail.getText());
+	        pst.setString(2, textSenha.getText());
+	        pst.setString(3, cboPerfil_1.getSelectedItem().toString());
+	        pst.setString(4, textUsuNome.getText());
+	        pst.setString(5, textUsuId.getText());
+	        
+	     // Converter o valor de textUsuId para um valor numérico
+	        int idUsuarios = Integer.parseInt(textUsuId.getText());
+	        pst.setInt(5, idUsuarios);
+	        
+	        if (!textUsuId.getText().isEmpty() && !textUsuNome.getText().isEmpty() && !textEmail.getText().isEmpty() && !textSenha.getText().isEmpty() && cboPerfil_1.getSelectedItem() != null) {
+	            int adicionado = pst.executeUpdate();
+	            if (adicionado > 0) {
+	                JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso");
+	            }
+
+	            // Limpar os campos após a atualização
+	            textUsuNome.setText(null);
+	            textEmail.setText(null);
+	            textSenha.setText(null);
+	            cboPerfil_1.setSelectedItem(null);
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios *");
+	        }
+	    }
+	      catch (NumberFormatException e) {
+	            JOptionPane.showMessageDialog(null, "O campo ID não pode estar vazio e deve ser um valor numérico.");
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, e);
+	    }
+	}
+	
+	// Método responsável pela remoção de usuários
+	private void remover() {
+		//a estrutura abaixo confirma a remoção do usuário
+		int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário ?","Atenção",JOptionPane.YES_NO_OPTION);
+		if(confirma == JOptionPane.YES_OPTION) {
+			String sql = "delete from usuarios_senhas where id_usuarios=?";
+			try {
+				
+				pst = conexao.prepareStatement(sql);
+				pst.setString(1,textUsuId.getText());
+				// Converter o valor de textUsuId para um valor numérico
+		        int idUsuarios = Integer.parseInt(textUsuId.getText());
+		        pst.setInt(1, idUsuarios);
+				int apagado = pst.executeUpdate();
+				if(apagado>0) {
+					JOptionPane.showMessageDialog(null,"Usuário removido com sucesso !");
+				// Limpar os campos após a atualização
+					textUsuId.setText(null);
+		            textUsuNome.setText(null);
+		            textEmail.setText(null);
+		            textSenha.setText(null);
+		            cboPerfil_1.setSelectedItem(null);					
+				}				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e);
+			}
+		}
+	}
+	
+	
 }

@@ -26,6 +26,11 @@
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/add.png</location>
 		</link>
 		<link>
+			<name>src/br/com/erp_intermarche/icones/clean.png</name>
+			<type>1</type>
+			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/clean.png</location>
+		</link>
+		<link>
 			<name>src/br/com/erp_intermarche/icones/dberro.png</name>
 			<type>1</type>
 			<location>C:/Users/nathan.fernandes/Desktop/1_ERP_Intermarche/ERP_Intermarche/src/br/com/erp_intermarche/icones/dberro.png</location>

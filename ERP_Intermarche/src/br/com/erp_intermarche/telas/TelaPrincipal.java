@@ -147,7 +147,7 @@ public class TelaPrincipal extends JFrame {
 				if (telasobre==null) {				
 					telasobre = new Sobre();
 					telasobre.setLocationRelativeTo(null);
-					
+					telasobre.setVisible(true);	
 				}else {
 					
 				telasobre.setVisible(true);	
